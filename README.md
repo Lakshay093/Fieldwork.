@@ -202,15 +202,17 @@ The login limiter is in memory and suits one API instance; multiple instances ne
 
 ## AI tools used
 
-I separate technical ownership from the assistance used to implement and verify the application. The contributions below reflect the development record and the attribution still awaiting confirmation.
+**AI agents used: Claude Code and Codex.**
+
+I used these agents to assist with development, review, and verification. The contributions below include my reported use of Claude Code and the Codex work recorded in the development log.
 
 | Contributor    | Contribution                                                                                                                                                                                                                                                                 |
 | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Claude Code    | Frontend development and interface styling, subject to confirmation of the work completed outside the recorded Codex session.                                                                                                                                                |
-| Codex AI       | Backend implementation assistance: Express routes, authentication, validation, leave rules, MongoDB transactions, automated tests, and deployment review. Codex also contributed frontend corrections, API integration, and Atlas configuration during the recorded session. |
+| Claude Code    | Frontend development and interface styling, as reported by the project author.                                                                                                                                                                                               |
+| Codex          | Backend implementation assistance: Express routes, authentication, validation, leave rules, MongoDB transactions, automated tests, and deployment review. Codex also contributed frontend corrections, API integration, and Atlas configuration during the recorded session. |
 | Lakshay Dhiman | Project requirements, design and configuration decisions, provision of the Atlas environment, review of application behavior, and final acceptance of changes. API and database setup included Codex assistance.                                                             |
 
-The Claude Code attribution remains pending confirmation. I have not assigned model versions or claimed independent test runs that are not recorded. The verification results in this README come from checks performed during the Codex-assisted development session.
+Specific model versions are not recorded. The verification results in this README come from checks performed during the Codex-assisted development session.
 
 ## Review and corrections
 

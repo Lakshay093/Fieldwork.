@@ -14,15 +14,17 @@ Employees can preview working days and available balance before submitting a req
 
 ## Development approach and contributions
 
+**AI agents used: Claude Code and Codex.**
+
 The project combined AI-assisted implementation with developer review and technical ownership.
 
 | Contributor    | Contribution                                                                                                                                                                                                                                                             |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Claude Code    | Frontend development and interface styling, subject to confirmation of the work completed outside the recorded Codex development session.                                                                                                                                |
-| Codex AI       | Backend implementation assistance, authentication, validation, leave-management rules, database transactions, automated tests, and deployment review. Codex also contributed frontend corrections, API integration, and Atlas configuration during the recorded session. |
+| Claude Code    | Frontend development and interface styling, as reported by the project author.                                                                                                                                                                                           |
+| Codex          | Backend implementation assistance, authentication, validation, leave-management rules, database transactions, automated tests, and deployment review. Codex also contributed frontend corrections, API integration, and Atlas configuration during the recorded session. |
 | Lakshay Dhiman | Project requirements, design and configuration decisions, provision of the Atlas environment, review of application behavior, and final acceptance of changes. API and database setup included Codex assistance.                                                         |
 
-The Claude Code attribution is pending confirmation. Specific model versions and additional independent testing have not been asserted without a supporting record.
+Claude Code's frontend contribution is recorded from the project author's account. Codex's contributions are documented in the development log. Specific model versions and additional independent testing have not been asserted without a supporting record.
 
 AI-generated changes were reviewed through automated tests, application checks, and iterative corrections. Project ownership includes deciding what the application should do and accepting changes; the implementation record also credits the tools that assisted with the work.
 

@@ -51,7 +51,7 @@ The clean install/start checks ran locally on Windows with Node 24. Actual Linux
 - [x] The checked Git history contains no matches for the current private secrets or common credential patterns.
 - [ ] Create/connect the intended GitHub repository and push the committed code.
 - [x] Replace the initial AI-tools fields with the approved contribution summary and link the development report.
-- [ ] Confirm the Claude Code contribution from work outside the recorded Codex session before submitting the final attribution.
+- [x] List Claude Code and Codex as the AI agents used, with the author's reported Claude Code contribution and the recorded Codex work.
 
 The README intentionally publishes demo app logins. Anyone reading it can access those demo accounts once hosted; use synthetic data in that database.
 
