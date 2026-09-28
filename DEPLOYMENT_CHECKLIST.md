@@ -4,7 +4,7 @@ Reviewed on September 28, 2026 against the original application prompt and the l
 
 ## Result
 
-The code is ready to push to GitHub and configure for a public demo on Vercel and Render. Local verification passed. The remaining work is in the hosting accounts: connect the repository, set the two public URLs, supply server secrets, and allow Render to connect to Atlas. No GitHub remote is currently configured, and no cloud deployment was performed during this review.
+The source is published on the `main` branch of [Lakshay093/Fieldwork.](https://github.com/Lakshay093/Fieldwork.). Local verification passed. The remaining work is in the hosting accounts: connect the repository to Vercel and Render, set the two public URLs, supply server secrets, and allow Render to connect to Atlas. Cloud deployment remains pending.
 
 ## Original requirements
 
@@ -49,7 +49,7 @@ The clean install/start checks ran locally on Windows with Node 24. Actual Linux
 - [x] Source, lockfile, environment examples, README, DEVLOG, and deployment configs are present.
 - [x] Real `.env` files, database credentials, dependencies, generated builds, and local artifacts are excluded.
 - [x] The checked Git history contains no matches for the current private secrets or common credential patterns.
-- [ ] Create/connect the intended GitHub repository and push the committed code.
+- [x] Connect the GitHub repository and push the committed code to `main`.
 - [x] Replace the initial AI-tools fields with the approved contribution summary and link the development report.
 - [x] List Claude Code and Codex as the AI agents used, with the author's reported Claude Code contribution and the recorded Codex work.
 
@@ -86,7 +86,7 @@ The SPA rewrite supports direct visits to `/login`, `/leave`, and `/team`. [Verc
 ## Before the first public deployment
 
 1. Replace the Atlas database password shown in the earlier screenshots. For the hosted API, use a dedicated database user with `readWrite` on `fieldwork`, then update the private URI wherever it is used. The supplied setup screenshot showed an Atlas Admin database user. [Atlas database users](https://www.mongodb.com/docs/atlas/security-add-mongodb-users/)
-2. Create/connect the GitHub repository and the Render/Vercel projects. Record their actual assigned public URLs.
+2. Connect the published GitHub repository to the Render/Vercel projects. Record their actual assigned public URLs.
 3. In the Render service, open **Connect → Outbound** and add all listed IP ranges to Atlas **Network Access**. The computer's existing allowlist entry does not cover Render. [Render outbound IPs](https://render.com/docs/outbound-ip-addresses)
 4. Set Render's private environment values and the final `CLIENT_ORIGIN`. Deploy the API and verify `/api/health` returns HTTP 200 with `{"status":"ok"}`.
 5. Set Vercel's `VITE_API_URL` using the working Render URL, then deploy. Changing this value requires a fresh build.

@@ -76,7 +76,7 @@ Automated tests use a temporary replica set and do not modify the Atlas data. Th
 
 ## Deployment status
 
-The application is prepared for a demonstration deployment. Publishing still requires the GitHub repository connection, hosting environment variables, Atlas network access, and verification on the public URLs.
+The source is published on the `main` branch of [Lakshay093/Fieldwork.](https://github.com/Lakshay093/Fieldwork.). Hosting the demonstration still requires connecting the repository to Vercel and Render, setting environment variables, configuring Atlas network access, and verifying the public URLs.
 
 The deployment configuration uses Vercel for the client, Render for the API, and Atlas for persistence. The clean deployment checks ran locally on Windows with Node 24. Actual hosting behavior, public TLS, assigned domains, production CORS, and direct-route refresh must be verified after deployment.
 

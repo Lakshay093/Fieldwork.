@@ -82,3 +82,9 @@ I record corrections here as they happen, including the cause and the check used
 - I updated the deployment checklist to reflect the completed report and the remaining attribution confirmation. This was a documentation-only change; verification results describe the preceding recorded checks.
 - Git's whitespace check flagged the report's Markdown hard-break spaces. I changed the header metadata to separate paragraphs so both formatting and Git whitespace checks pass.
 - At the user's follow-up request, I explicitly listed Claude Code and Codex as the AI agents used in the README and report. Claude Code's frontend contribution is now recorded as author-reported, replacing the pending confirmation wording; the recorded Codex contributions remain credited.
+
+## GitHub publication
+
+- I connected the project to `Lakshay093/Fieldwork.` and aligned the local branch with the repository's `main` branch. A final scan of all 12 existing commits and tracked files found no current private Atlas/JWT credentials or common secret patterns.
+- Automatic approval review initially blocked publication of the documented demo login credentials. The user explicitly approved including them, after which the full project history was pushed successfully. Private environment files and local artifacts remain excluded.
+- I updated the documentation with the repository link and completed GitHub status. Vercel and Render deployment remain pending.

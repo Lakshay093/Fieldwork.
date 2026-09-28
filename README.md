@@ -2,6 +2,8 @@
 
 **Project author: Lakshay Dhiman**
 
+**Repository:** [Lakshay093/Fieldwork.](https://github.com/Lakshay093/Fieldwork.)
+
 ## What it is
 
 I built Fieldwork to help employees request time off and managers review it. Employees can check balances, preview a date range, submit leave, and cancel eligible requests. Managers see their direct reports' pending requests and recent decisions. The API enforces ownership, overlap checks, reservations, and atomic balance updates.
