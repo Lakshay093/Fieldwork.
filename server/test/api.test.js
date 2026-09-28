@@ -503,7 +503,8 @@ describe('manager decisions', () => {
     try {
       const res = await decision(created.body.leave.id);
       expect(res.status).toBe(409);
-      expect(res.body.error.code).toBe('INSUFFICIENT_BALANCE');
+      expect(res.body.error.code).toBe('BALANCE_CHANGED');
+      expect(res.body.error.message).toContain('still pending');
     } finally {
       spy.mockRestore();
     }

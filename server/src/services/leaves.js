@@ -277,7 +277,11 @@ export async function decideLeave(actor, id, status, comment, now) {
         { session, returnDocument: 'after' },
       );
       if (!deducted)
-        throw insufficient(leave.workingDays, employee.balances[leave.type]);
+        throw new AppError(
+          409,
+          'BALANCE_CHANGED',
+          'The balance changed before approval. This request is still pending. Refresh and try again.',
+        );
     }
     const updated = await LeaveRequest.findOneAndUpdate(
       { _id: id, status: 'pending' },

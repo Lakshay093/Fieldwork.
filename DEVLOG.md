@@ -14,15 +14,15 @@ I record corrections here as they happen, including the cause and the check used
 - The first API run passed all 72 tests but Mongoose 9 reported that the update option named new is deprecated. I replaced it with returnDocument: 'after' and reran the suite.
 - Concurrent approvals honor other pending reservations. If an administrator reduces a balance below all reservations, neither request is approved until a reservation is released; the balance stays intact and both requests stay pending.
 
-- Desktop visual review showed secondary text was too small and too pale. I increased the small type sizes and darkened muted text to make table dates, form labels, and status details easier to read.
-- At 390px, the visually hidden Actions heading escaped its scrollable table because its absolute position used the page as its containing block. It widened the document. I made the table scroller positioned so the heading stays contained while the table scrolls independently.
-
 ## Stage 3 — demo seed
 
 - The demo seed preserves existing accounts, passwords, balances, and requests on repeat runs. Samples use upcoming working days in the current year; near year end, I skip samples if there is not enough room for valid ranges.
 - The first live demo database run used port 27017, which was already occupied by a standalone MongoDB instance on this machine. The replica-set handshake failed. I moved the demo to port 27018 and added an explicit port check; existing database processes were left untouched.
 
 ## Stage 4 — client
+
+- Desktop visual review showed secondary text was too small and too pale. I increased the small type sizes and darkened muted text to make table dates, form labels, and status details easier to read.
+- At 390px, the visually hidden Actions heading escaped its scrollable table because its absolute position used the page as its containing block. It widened the document. I made the table scroller positioned so the heading stays contained while the table scrolls independently.
 
 - The first lint run caught synchronous loading-state updates inside two data-loading effects. I separated initial fetching from user-triggered refreshes and added abort handling to session restoration. The initial loading state is set once, and only completed requests update it.
 - Preview results are tied to the exact type and date inputs. Changing a date immediately disables submission, and aborted responses cannot overwrite the newer preview.
@@ -33,3 +33,7 @@ I record corrections here as they happen, including the cause and the check used
 - The browser approval click was paused by automatic approval review because it changes persisted state and deducts demo balance. I asked for specific permission; the automated approval, refund, and concurrency tests already passed.
 
 - The user chose to skip the browser approval check. The synthetic request remains pending; no approval was submitted. Desktop and 390px mobile layout checks are complete, with no horizontal document overflow on either dashboard.
+
+## Final review
+
+- The guarded-deduction failure originally reused an insufficient-balance message based on an earlier snapshot. That could misleadingly report enough balance even though the update failed. I changed it to a specific BALANCE_CHANGED error saying the request remains pending, and tightened the rollback test to check that explanation.
