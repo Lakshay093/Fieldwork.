@@ -1,0 +1,33 @@
+{
+  "name": "fieldwork-leave",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n api,web \"npm run dev -w server\" \"npm run dev -w client\"",
+    "start": "npm start -w server",
+    "seed": "npm run seed -w server",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "build": "npm run build -w client",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "concurrently": "^10.0.5",
+    "eslint": "^10.11.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.12.0",
+    "prettier": "^3.9.9",
+    "vitest": "^5.0.2"
+  }
+}
