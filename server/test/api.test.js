@@ -116,7 +116,7 @@ afterAll(async () => {
 
 describe('demo seed', () => {
   it('creates one manager and four reports, with valid login and repeatable balances', async () => {
-    const first = await seedDemo('FieldworkDemo!26', now());
+    const first = await seedDemo('FieldworkPass!28', now());
     expect(first.users.filter((user) => user.role === 'manager')).toHaveLength(
       1,
     );
@@ -125,14 +125,24 @@ describe('demo seed', () => {
     );
     expect(first.requests).toBe(5);
     const seededEmployee = await User.findOne({
-      email: 'aisha.khan@fieldwork.example',
+      email: 'lakshay@fieldworkmail.com',
     });
     expect(seededEmployee.balances.casual).toBe(10);
     expect(await User.countDocuments({ managerId: first.users[0].id })).toBe(4);
     const login = await request(app)
       .post('/api/auth/login')
-      .send({ email: seededEmployee.email, password: 'FieldworkDemo!26' });
+      .send({ email: seededEmployee.email, password: 'FieldworkPass!28' });
     expect(login.status).toBe(200);
+    expect(login.body.user.name).toBe('Lakshay Dhiman');
+    const managerLogin = await request(app).post('/api/auth/login').send({
+      email: 'abhishek@fieldworkmail.com',
+      password: 'FieldworkPass!28',
+    });
+    expect(managerLogin.status).toBe(200);
+    expect(managerLogin.body.user).toMatchObject({
+      name: 'Abhishek',
+      role: 'manager',
+    });
     const second = await seedDemo('AnotherPassword!26', now());
     expect(second.requests).toBe(5);
     expect(second.users).toEqual(first.users);
@@ -141,13 +151,13 @@ describe('demo seed', () => {
       (
         await request(app)
           .post('/api/auth/login')
-          .send({ email: seededEmployee.email, password: 'FieldworkDemo!26' })
+          .send({ email: seededEmployee.email, password: 'FieldworkPass!28' })
       ).status,
     ).toBe(200);
   });
   it('still creates all accounts safely near year end', async () => {
     const result = await seedDemo(
-      'FieldworkDemo!26',
+      'FieldworkPass!28',
       new Date('2026-12-31T12:00:00Z'),
     );
     expect(result.users).toHaveLength(5);

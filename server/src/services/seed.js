@@ -10,8 +10,8 @@ import {
 } from '../utils/dates.js';
 
 const people = [
-  ['Meera Kapoor', 'meera.kapoor@fieldwork.example', 'manager'],
-  ['Aisha Khan', 'aisha.khan@fieldwork.example', 'employee'],
+  ['Abhishek', 'abhishek@fieldworkmail.com', 'manager'],
+  ['Lakshay Dhiman', 'lakshay@fieldworkmail.com', 'employee'],
   ['Rohan Mehta', 'rohan.mehta@fieldwork.example', 'employee'],
   ['Sofia Fernandes', 'sofia.fernandes@fieldwork.example', 'employee'],
   ['Arjun Nair', 'arjun.nair@fieldwork.example', 'employee'],

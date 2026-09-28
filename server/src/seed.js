@@ -10,7 +10,7 @@ try {
     );
   await connectDatabase(env.MONGODB_URI);
   const result = await seedDemo(
-    process.env.SEED_PASSWORD ?? 'FieldworkDemo!26',
+    process.env.SEED_PASSWORD ?? 'FieldworkPass!28',
   );
   process.stdout.write(
     `Demo ready: ${result.users.length} accounts, ${result.requests} requests. Existing accounts and balances were preserved.\n`,

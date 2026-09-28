@@ -58,3 +58,10 @@ I record corrections here as they happen, including the cause and the check used
 ## Footer personalization
 
 - At the user's request, I replaced the dashboard footer text with “Made by Lakshay Dhiman with ♥”. The heart has an accessible “love” label, and both dashboards share the updated footer.
+
+## Primary demo accounts
+
+- I renamed the existing Atlas employee to Lakshay Dhiman and manager to Abhishek, changed their login emails to the requested `fieldworkmail.com` addresses, and replaced both password hashes using bcrypt. The seed definitions, default seed password, local ignored environment setting, and README now match these accounts.
+- Both account updates committed in one transaction. Before committing, I checked that every user ID, reporting relationship, balance, and leave record was preserved and that the other three accounts were unchanged. The database still contains five users and six leave requests.
+- Live API checks confirmed both new logins and current profiles, and rejected both old emails and the old password. The seed tests also verify the new employee and manager credentials and preserve passwords on repeated seeding.
+- I refreshed the existing browser session and confirmed that the dashboard shows Lakshay and the LD initials with the same balances and three requests. Both seed tests, lint, and the repository formatting check passed.

@@ -6,17 +6,14 @@ I built a small leave-request app for employees and their managers. Employees ca
 
 ### Demo credentials
 
-After `npm run seed`, every account below uses **`FieldworkDemo!26`**, unless I set a different `SEED_PASSWORD` before the first seed.
+Both primary demo accounts use **`FieldworkPass!28`**. On a fresh database, `npm run seed` uses this password unless I set a different `SEED_PASSWORD` before the first seed.
 
-| Role     | Name            | Email                               |
-| -------- | --------------- | ----------------------------------- |
-| Manager  | Meera Kapoor    | `meera.kapoor@fieldwork.example`    |
-| Employee | Aisha Khan      | `aisha.khan@fieldwork.example`      |
-| Employee | Rohan Mehta     | `rohan.mehta@fieldwork.example`     |
-| Employee | Sofia Fernandes | `sofia.fernandes@fieldwork.example` |
-| Employee | Arjun Nair      | `arjun.nair@fieldwork.example`      |
+| Role     | Name           | Email                        |
+| -------- | -------------- | ---------------------------- |
+| Manager  | Abhishek       | `abhishek@fieldworkmail.com` |
+| Employee | Lakshay Dhiman | `lakshay@fieldworkmail.com`  |
 
-All four employees report to Meera. The starting allowances are 12 casual days and 10 sick days. The seed includes five example requests when enough working days remain in the year. It preserves existing accounts, passwords, balances, and requests on repeat runs. It refuses to run with `NODE_ENV=production`.
+The seed also creates sample teammates Rohan Mehta, Sofia Fernandes, and Arjun Nair. All four employees report to Abhishek. Fresh accounts use the seed password and start with 12 casual days and 10 sick days. The seed includes five example requests when enough working days remain in the year. It preserves existing accounts, passwords, balances, and requests on repeat runs. It refuses to run with `NODE_ENV=production`.
 
 ## Tech stack
 
@@ -44,7 +41,7 @@ client/
 
 I connected this workspace to the supplied Atlas cluster using the dedicated `fieldwork` database. The credentials are stored only in the ignored `server/.env`; the previous temporary-database configuration is preserved in the ignored `server/.env.before-atlas`. The downloaded Atlas credentials file is not part of the repository.
 
-With this configuration, I run `npm run dev` directly. The temporary database runner below is only needed when choosing the local database option. The five demo accounts use the credentials listed above, and their data now persists in Atlas after the local app stops.
+With this configuration, I run `npm run dev` directly. The temporary database runner below is only needed when choosing the local database option. The two primary Atlas accounts use the credentials listed above. Their existing IDs, reporting relationships, balances, and leave records were preserved when their names and credentials were updated; the three other accounts were left unchanged. Data persists in Atlas after the local app stops.
 
 ### Prerequisites
 
