@@ -16,6 +16,7 @@ import { createApp } from '../src/app.js';
 import { connectDatabase } from '../src/db.js';
 import { User } from '../src/models/User.js';
 import { LeaveRequest } from '../src/models/LeaveRequest.js';
+import { seedDemo } from '../src/services/seed.js';
 
 const secret = 'test-secret-with-at-least-thirty-two-characters';
 const now = () => new Date('2026-09-01T12:00:00Z');
@@ -111,6 +112,47 @@ beforeEach(async () => {
 afterAll(async () => {
   await mongoose.disconnect();
   await database?.stop();
+});
+
+describe('demo seed', () => {
+  it('creates one manager and four reports, with valid login and repeatable balances', async () => {
+    const first = await seedDemo('FieldworkDemo!26', now());
+    expect(first.users.filter((user) => user.role === 'manager')).toHaveLength(
+      1,
+    );
+    expect(first.users.filter((user) => user.role === 'employee')).toHaveLength(
+      4,
+    );
+    expect(first.requests).toBe(5);
+    const seededEmployee = await User.findOne({
+      email: 'aisha.khan@fieldwork.example',
+    });
+    expect(seededEmployee.balances.casual).toBe(10);
+    expect(await User.countDocuments({ managerId: first.users[0].id })).toBe(4);
+    const login = await request(app)
+      .post('/api/auth/login')
+      .send({ email: seededEmployee.email, password: 'FieldworkDemo!26' });
+    expect(login.status).toBe(200);
+    const second = await seedDemo('AnotherPassword!26', now());
+    expect(second.requests).toBe(5);
+    expect(second.users).toEqual(first.users);
+    expect((await User.findById(seededEmployee._id)).balances.casual).toBe(10);
+    expect(
+      (
+        await request(app)
+          .post('/api/auth/login')
+          .send({ email: seededEmployee.email, password: 'FieldworkDemo!26' })
+      ).status,
+    ).toBe(200);
+  });
+  it('still creates all accounts safely near year end', async () => {
+    const result = await seedDemo(
+      'FieldworkDemo!26',
+      new Date('2026-12-31T12:00:00Z'),
+    );
+    expect(result.users).toHaveLength(5);
+    expect(result.requests).toBe(0);
+  });
 });
 
 describe('authentication and API boundaries', () => {

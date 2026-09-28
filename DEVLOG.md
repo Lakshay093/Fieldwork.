@@ -2,6 +2,11 @@
 
 I record corrections here as they happen, including the cause and the check used after the fix.
 
+## Stage 3 — demo seed
+
+- The demo seed preserves existing accounts, passwords, balances, and requests on repeat runs. Samples use upcoming working days in the current year; near year end, I skip samples if there is not enough room for valid ranges.
+- The first live demo database run used port 27017, which was already occupied by a standalone MongoDB instance on this machine. The replica-set handshake failed. I moved the demo to port 27018 and added an explicit port check; existing database processes were left untouched.
+
 ## Stage 1 — models and calendar
 
 - The machine's default Node is 21, which is not LTS. I am using the bundled Node runtime for verification and targeting Node 24 LTS in `.nvmrc`.

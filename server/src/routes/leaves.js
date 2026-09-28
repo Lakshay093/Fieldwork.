@@ -21,11 +21,9 @@ export function leaveRoutes(now = () => new Date()) {
   const employee = requireRole('employee');
   const manager = requireRole('manager');
   router.post('/', employee, async (req, res) =>
-    res
-      .status(201)
-      .json({
-        leave: await applyLeave(req.user, leaveInput.parse(req.body), now()),
-      }),
+    res.status(201).json({
+      leave: await applyLeave(req.user, leaveInput.parse(req.body), now()),
+    }),
   );
   router.get('/mine', async (req, res) => res.json(await mine(req.user)));
   router.get('/preview', employee, async (req, res) => {
