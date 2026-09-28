@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: fieldwork-api
+    runtime: node
+    plan: free
+    buildCommand: npm ci --omit=dev --workspace server --include-workspace-root=false
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 24
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CLIENT_ORIGIN
+        sync: false
+      - key: TRUST_PROXY
+        value: 1

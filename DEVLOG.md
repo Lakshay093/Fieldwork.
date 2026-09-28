@@ -37,3 +37,12 @@ I record corrections here as they happen, including the cause and the check used
 ## Final review
 
 - The guarded-deduction failure originally reused an insufficient-balance message based on an earlier snapshot. That could misleadingly report enough balance even though the update failed. I changed it to a specific BALANCE_CHANGED error saying the request remains pending, and tightened the rollback test to check that explanation.
+
+## Stage 5 — documentation and deployment
+
+- I added the first-person README, root Vercel SPA configuration with response headers, and a Render API blueprint. The AI-tools section remains blank fields for the user.
+- I checked the deployment guidance against the official MongoDB, Render, and Vercel documentation. No cloud deployment was performed.
+- Final verification passed: 82 automated tests in the full run; the affected rollback test passed again after the final error-message correction; lint; formatting; production client build; production dependency audit (zero known vulnerabilities); npm start in production mode; and HTTP 200 from both the API health check and local client.
+- The local ignored server environment file now has a generated random JWT secret. No environment files or credentials were added to Git.
+
+- The browser's full-page screenshot stitched the recent-decisions table twice, although the DOM contained one table. I replaced that artifact with a single-viewport capture.
