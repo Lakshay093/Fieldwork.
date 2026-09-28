@@ -76,10 +76,12 @@ Automated tests use a temporary replica set and do not modify the Atlas data. Th
 
 ## Deployment status
 
-The source is published on the `main` branch of [Lakshay093/Fieldwork.](https://github.com/Lakshay093/Fieldwork.). Hosting the demonstration still requires connecting the repository to Vercel and Render, setting environment variables, configuring Atlas network access, and verifying the public URLs.
+The demonstration was deployed on September 28, 2026. The frontend is available at [fieldwork-sigma.vercel.app](https://fieldwork-sigma.vercel.app), and the Render API exposes its [health endpoint](https://fieldwork-api-gqm9.onrender.com/api/health). MongoDB Atlas retains the existing application data.
 
-The deployment configuration uses Vercel for the client, Render for the API, and Atlas for persistence. The clean deployment checks ran locally on Windows with Node 24. Actual hosting behavior, public TLS, assigned domains, production CORS, and direct-route refresh must be verified after deployment.
+The initial Render build succeeded, but startup failed because its outbound addresses were absent from Atlas's IP access list. With Lakshay's explicit approval, the two Render ranges were added and the API deployed successfully. Vercel was configured with the repository root and the actual Render API URL; Render's allowed origin was then set to the assigned frontend domain.
 
-The Atlas password shown in the earlier setup screenshots should be replaced before public deployment. The public demo credentials are intended for synthetic demonstration data. Annual balance rollover, account provisioning, password reset, backups, and monitoring remain operational responsibilities before use with a real workforce.
+Live verification covered API health, employee and manager sign-in, existing request lists and balances, session restoration, direct-route refresh, HTTPS response headers, production CORS, and unauthenticated API rejection. No leave records were changed during these checks. Render tracks `Lakshay093/Fieldwork.` and Vercel tracks `Lakshay093/fieldworkk`; their application and deployment files matched when checked. Future changes must be synchronized across both repositories.
+
+Atlas credential rotation and reducing the database user's Atlas Admin role were not performed during deployment. The public demo credentials are intended for synthetic demonstration data. Annual balance rollover, account provisioning, password reset, backups, and monitoring remain operational responsibilities before use with a real workforce.
 
 See [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md) for the required settings and launch checks, and [README.md](README.md) for setup, credentials, business rules, and API usage.

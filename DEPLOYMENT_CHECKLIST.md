@@ -4,7 +4,14 @@ Reviewed on September 28, 2026 against the original application prompt and the l
 
 ## Result
 
-The source is published on the `main` branch of [Lakshay093/Fieldwork.](https://github.com/Lakshay093/Fieldwork.). Local verification passed. The remaining work is in the hosting accounts: connect the repository to Vercel and Render, set the two public URLs, supply server secrets, and allow Render to connect to Atlas. Cloud deployment remains pending.
+The app is deployed on Vercel and Render with the existing Atlas database. Live verification passed on September 28, 2026.
+
+| Component | Live address                                                          | Source                          |
+| --------- | --------------------------------------------------------------------- | ------------------------------- |
+| Frontend  | [fieldwork-sigma.vercel.app](https://fieldwork-sigma.vercel.app)      | `Lakshay093/fieldworkk`, `main` |
+| API       | [Health endpoint](https://fieldwork-api-gqm9.onrender.com/api/health) | `Lakshay093/Fieldwork.`, `main` |
+
+The application and deployment files in both repositories matched at deployment. Keep future changes synchronized. Vercel's public API URL is `https://fieldwork-api-gqm9.onrender.com/api`; Render's allowed frontend origin is `https://fieldwork-sigma.vercel.app`.
 
 ## Original requirements
 
@@ -42,7 +49,7 @@ The source is published on the `main` branch of [Lakshay093/Fieldwork.](https://
 - Tracked files, all nine pre-review commits, and the built client were checked against the current database/JWT secrets and common credential patterns. No matches were found. Environment files, credential exports, test artifacts, and Vercel project metadata are ignored.
 - The mobile allowance fix was inspected at 390px. The earlier browser approval click remains skipped at the user's request; the automated decision/refund tests passed.
 
-The clean install/start checks ran locally on Windows with Node 24. Actual Linux hosting, public TLS, assigned domains, production CORS, and SPA refresh still need a check after the first deployment.
+The clean install/start checks ran locally on Windows with Node 24. Subsequent live checks confirmed successful Render and Vercel builds, HTTPS access, API health, both role logins, existing request lists, session restoration, and direct route refresh. `/login`, `/leave`, and `/team` return HTTP 200 with the SPA and its content security policy. The production CORS preflight returns 204 with the exact Vercel origin; unauthenticated `/api/auth/me` returns 401.
 
 ## GitHub preparation
 
@@ -83,14 +90,16 @@ Set **`VITE_API_URL=https://<actual-render-service>.onrender.com/api`** for Prod
 
 The SPA rewrite supports direct visits to `/login`, `/leave`, and `/team`. [Vercel's Vite guide](https://vercel.com/docs/frameworks/frontend/vite)
 
-## Before the first public deployment
+## Completed launch steps
 
-1. Replace the Atlas database password shown in the earlier screenshots. For the hosted API, use a dedicated database user with `readWrite` on `fieldwork`, then update the private URI wherever it is used. The supplied setup screenshot showed an Atlas Admin database user. [Atlas database users](https://www.mongodb.com/docs/atlas/security-add-mongodb-users/)
-2. Connect the published GitHub repository to the Render/Vercel projects. Record their actual assigned public URLs.
-3. In the Render service, open **Connect → Outbound** and add all listed IP ranges to Atlas **Network Access**. The computer's existing allowlist entry does not cover Render. [Render outbound IPs](https://render.com/docs/outbound-ip-addresses)
-4. Set Render's private environment values and the final `CLIENT_ORIGIN`. Deploy the API and verify `/api/health` returns HTTP 200 with `{"status":"ok"}`.
-5. Set Vercel's `VITE_API_URL` using the working Render URL, then deploy. Changing this value requires a fresh build.
-6. Verify both role logins from the public client, direct-route refresh, session restoration, and read-only request lists. Confirm the browser reports no CORS failures. Any write checks should use deliberately disposable demo requests.
+1. Reused the existing `fieldwork-api` Free service in Render's `lakshay` workspace. Its initial build succeeded but startup failed because Atlas only allowed the local computer's address.
+2. With explicit approval, added Render's listed outbound ranges, `74.220.48.0/24` and `74.220.56.0/24`, to the Atlas project IP access list. Both became active. Keep this list aligned with the service's **Connect → Outbound** details if its region changes. [Render outbound IPs](https://render.com/docs/outbound-ip-addresses)
+3. Redeployed the API successfully and verified `{"status":"ok"}` from `/api/health`.
+4. Created the `fieldwork` Vercel project from the verified `fieldworkk` repository. Used the repository root and its `vercel.json` build settings, with the public Render API URL set before the build.
+5. Set Render's `CLIENT_ORIGIN` to the assigned Vercel production domain and deployed that environment change.
+6. Verified both role logins, existing balances and request lists, session restoration, direct routes, response headers, and production CORS. No leave requests were created, approved, rejected, or cancelled during deployment verification.
+
+Existing Atlas database credentials were retained. Password rotation and replacing the Atlas Admin database role with a dedicated `readWrite` role on `fieldwork` remain operational follow-up work. [Atlas database users](https://www.mongodb.com/docs/atlas/security-add-mongodb-users/)
 
 Render's free service sleeps after 15 minutes without inbound traffic and may take about a minute to wake. The README documents this cold start. [Render free-service behavior](https://render.com/docs/free)
 

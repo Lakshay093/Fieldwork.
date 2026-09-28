@@ -4,11 +4,15 @@
 
 **Repository:** [Lakshay093/Fieldwork.](https://github.com/Lakshay093/Fieldwork.)
 
+**Live app:** [fieldwork-sigma.vercel.app](https://fieldwork-sigma.vercel.app)
+
+**API health:** [fieldwork-api-gqm9.onrender.com/api/health](https://fieldwork-api-gqm9.onrender.com/api/health)
+
 ## What it is
 
 I built Fieldwork to help employees request time off and managers review it. Employees can check balances, preview a date range, submit leave, and cancel eligible requests. Managers see their direct reports' pending requests and recent decisions. The API enforces ownership, overlap checks, reservations, and atomic balance updates.
 
-I used AI assistance during development and retained responsibility for the requirements, configuration decisions, and acceptance of changes. The [development report](DEVELOPMENT_REPORT.md) records the contributions, corrections, and verification results. The [deployment checklist](DEPLOYMENT_CHECKLIST.md) covers the remaining hosting setup.
+I used AI assistance during development and retained responsibility for the requirements, configuration decisions, and acceptance of changes. The [development report](DEVELOPMENT_REPORT.md) records the contributions, corrections, and verification results. The [deployment checklist](DEPLOYMENT_CHECKLIST.md) records the live hosting settings and launch checks.
 
 ### Demo credentials
 
@@ -178,7 +182,11 @@ Successful creation returns 201. Validation uses 400, missing/expired authentica
 
 ## Deployment notes
 
-I checked the original requirements and deployment setup in [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md). That file records the verification results and the account settings still needed before the first deployment.
+I deployed the client to Vercel and the API to Render on September 28, 2026, using the existing Atlas database. Both role logins, existing request lists, session restoration, direct routes, API health, and production CORS passed live checks. The deployment checks did not change leave records.
+
+Render tracks `main` in [Lakshay093/Fieldwork.](https://github.com/Lakshay093/Fieldwork.); Vercel tracks `main` in [Lakshay093/fieldworkk](https://github.com/Lakshay093/fieldworkk). I verified that their application and deployment files matched before deployment. Future application changes must be kept in sync across these two repositories.
+
+The production settings are `VITE_API_URL=https://fieldwork-api-gqm9.onrender.com/api` on Vercel and `CLIENT_ORIGIN=https://fieldwork-sigma.vercel.app` on Render. [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md) records the remaining operational limits and verification evidence.
 
 ### API: Render
 
@@ -200,7 +208,7 @@ I use a MongoDB Atlas Free cluster for a persistent demo. Create a database user
 
 For a hosted demonstration, seed a separate demo database from a development environment before starting the production API. I would provision real accounts separately and remove demo credentials before handling real employee data. The app has no signup, password reset, account administration, or annual rollover UI.
 
-The login limiter is in memory and suits one API instance; multiple instances need a shared rate-limit store. `sessionStorage` tokens are accessible to page JavaScript, so the Vercel configuration includes a restrictive script policy. Persistent backups, monitoring, account provisioning, and an annual balance migration remain deployment responsibilities. No live cloud deployment was performed as part of this build.
+The login limiter is in memory and suits one API instance; multiple instances need a shared rate-limit store. `sessionStorage` tokens are accessible to page JavaScript, so the Vercel configuration includes a restrictive script policy. Persistent backups, monitoring, account provisioning, and an annual balance migration remain operational responsibilities before use with a real workforce.
 
 ## AI tools used
 
