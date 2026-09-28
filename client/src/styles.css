@@ -1487,9 +1487,12 @@ tr:last-child td {
   }
   .balance-top {
     font-size: 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
   .allowance-tag {
-    display: none;
+    font-size: 10px;
   }
   .balance-amount {
     gap: 6px;

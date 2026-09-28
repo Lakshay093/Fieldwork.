@@ -172,15 +172,19 @@ Successful creation returns 201. Validation uses 400, missing/expired authentica
 
 ## Deployment notes
 
+I checked the original requirements and deployment setup in [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md). That file records the verification results and the account settings still needed before the first deployment.
+
 ### API: Render
 
-I included `render.yaml` for a Node web service. Use the repository root, build with `npm ci --omit=dev --workspace server --include-workspace-root=false`, and start with `npm start`. The health check is `/api/health`. Configure `MONGODB_URI`, `JWT_SECRET`, `CLIENT_ORIGIN`, `NODE_ENV=production`, and the correct `TRUST_PROXY`; Render supplies `PORT`. The blueprint generates a JWT secret and uses one proxy hop. [Render's Express guide](https://render.com/docs/deploy-node-express-app)
+I included `render.yaml` for a Node web service. Use the repository root, build with `npm ci --omit=dev --workspace server --include-workspace-root=false`, and start with `npm start`. The health check is `/api/health`. Configure `MONGODB_URI`, `JWT_SECRET`, `CLIENT_ORIGIN`, `NODE_ENV=production`, and the correct `TRUST_PROXY`; Render supplies `PORT`. The API binds to `0.0.0.0`. The blueprint selects Node 24, generates a JWT secret, and uses one proxy hop. [Render's Express guide](https://render.com/docs/deploy-node-express-app)
+
+In the Render service's **Connect → Outbound** tab, copy every outbound IP range into Atlas **Network Access**. My computer's allowlisted IP only permits the local connection; the deployed API needs its own ranges. [Render outbound IPs](https://render.com/docs/outbound-ip-addresses)
 
 Render's free web services spin down when idle, so the first request may take longer while the API starts. I would use a paid always-on service for a real team that needs predictable response times. [Free service behavior](https://render.com/docs/free)
 
 ### Client: Vercel
 
-Use the **repository root** as the Vercel project root. The root `vercel.json` installs dependencies, runs `npm run build`, serves `client/dist`, and rewrites client routes to `index.html`. Set `VITE_API_URL=https://YOUR-API-HOST/api` before building. Changing it requires rebuilding the client. [Vite SPA routing on Vercel](https://vercel.com/docs/frameworks/frontend/vite)
+Use the **repository root** as the Vercel project root. The root `vercel.json` installs dependencies, runs `npm run build`, serves `client/dist`, and rewrites client routes to `index.html`. Node 24 is pinned in `package.json`. Set `VITE_API_URL=https://YOUR-API-HOST/api` before building. Vercel builds check that this is an HTTPS API URL ending in `/api`; a missing or malformed value stops the build with setup instructions. Changing it requires rebuilding the client. [Vite SPA routing on Vercel](https://vercel.com/docs/frameworks/frontend/vite)
 
 Set the API's `CLIENT_ORIGIN` to the exact client origin, such as `https://YOUR-CLIENT.vercel.app`, without a trailing slash or path. For more than one deployment, list exact origins separated by commas. I do not use wildcard CORS. The development Vite proxy is not part of the production build.
 

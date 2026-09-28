@@ -10,7 +10,7 @@ try {
     clientOrigin: env.CLIENT_ORIGIN,
     trustProxy: env.TRUST_PROXY,
   });
-  const server = app.listen(env.PORT, () =>
+  const server = app.listen(env.PORT, '0.0.0.0', () =>
     process.stdout.write(`Fieldwork API listening on port ${env.PORT}\n`),
   );
   async function shutdown() {

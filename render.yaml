@@ -8,7 +8,7 @@ services:
     healthCheckPath: /api/health
     envVars:
       - key: NODE_VERSION
-        value: 24
+        value: '24'
       - key: NODE_ENV
         value: production
       - key: MONGODB_URI
@@ -18,4 +18,4 @@ services:
       - key: CLIENT_ORIGIN
         sync: false
       - key: TRUST_PROXY
-        value: 1
+        value: '1'

@@ -65,3 +65,12 @@ I record corrections here as they happen, including the cause and the check used
 - Both account updates committed in one transaction. Before committing, I checked that every user ID, reporting relationship, balance, and leave record was preserved and that the other three accounts were unchanged. The database still contains five users and six leave requests.
 - Live API checks confirmed both new logins and current profiles, and rejected both old emails and the old password. The seed tests also verify the new employee and manager credentials and preserve passwords on repeated seeding.
 - I refreshed the existing browser session and confirmed that the dashboard shows Lakshay and the LD initials with the same balances and three requests. Both seed tests, lint, and the repository formatting check passed.
+
+## Deployment readiness review
+
+- I compared the original prompt with the source and automated tests. All 82 tests passed. The requested final browser approval remains skipped.
+- The package's Node range had no upper bound, which could select a later major version on a host. I pinned it to Node 24 and synchronized the lockfile. Render's environment values are quoted strings, and the API explicitly binds to `0.0.0.0`.
+- A Vercel build could previously succeed without `VITE_API_URL` and leave the browser calling its own static host for `/api`. I added a Vercel build check for the HTTPS API URL and verified both the expected failure and a successful configured build.
+- Mobile CSS hid the total allowance, although the prompt requires total, used, pending, and available balances. I kept the allowance visible in a stacked card header and checked the result at 390px without horizontal page overflow.
+- Clean source exports passed the Render production dependency install/start and the Vercel install/build. The production API check connected to Atlas and verified health, exact-origin CORS, and unauthenticated rejection without changing leave records. These local checks do not substitute for verification on the actual hosts.
+- A scan of tracked files, the nine existing commits, and the client build found no current private credentials or common secret patterns. Production dependency auditing reported zero known vulnerabilities. I added `.vercel/` to the ignored paths and documented the remaining hosting settings in `DEPLOYMENT_CHECKLIST.md`.
