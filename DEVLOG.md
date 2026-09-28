@@ -54,3 +54,7 @@ I record corrections here as they happen, including the cause and the check used
 - I extended the ignore rules to cover credential downloads named `*.env`, in addition to the existing `.env` patterns.
 
 - Verification passed against Atlas: API health, both role logins, current-user lookup, two employee requests, three pending team requests, two recent decisions, balance summaries, the weekend preview, and the leave-query indexes. I matched the API employee ID to the stored Atlas record to confirm the running process uses the new database. No browser approval test was performed.
+
+## Footer personalization
+
+- At the user's request, I replaced the dashboard footer text with “Made by Lakshay Dhiman with ♥”. The heart has an accessible “love” label, and both dashboards share the updated footer.

@@ -71,7 +71,12 @@ export function Layout() {
           <Outlet />
         </main>
         <footer className="page-footer">
-          <span>Made for a healthier working rhythm.</span>
+          <span>
+            Made by Lakshay Dhiman with{' '}
+            <span role="img" aria-label="love">
+              ♥
+            </span>
+          </span>
           <span>
             Fieldwork <span> / </span> Time off
           </span>
