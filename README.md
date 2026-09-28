@@ -40,6 +40,12 @@ client/
 
 ## How to run locally
 
+### This workspace's Atlas connection
+
+I connected this workspace to the supplied Atlas cluster using the dedicated `fieldwork` database. The credentials are stored only in the ignored `server/.env`; the previous temporary-database configuration is preserved in the ignored `server/.env.before-atlas`. The downloaded Atlas credentials file is not part of the repository.
+
+With this configuration, I run `npm run dev` directly. The temporary database runner below is only needed when choosing the local database option. The five demo accounts use the credentials listed above, and their data now persists in Atlas after the local app stops.
+
 ### Prerequisites
 
 - Node **24 LTS** and npm. `.nvmrc` records the version. Node 21 is not supported.

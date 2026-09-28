@@ -46,3 +46,11 @@ I record corrections here as they happen, including the cause and the check used
 - The local ignored server environment file now has a generated random JWT secret. No environment files or credentials were added to Git.
 
 - The browser's full-page screenshot stitched the recent-decisions table twice, although the DOM contained one table. I replaced that artifact with a single-viewport capture.
+
+## Atlas connection
+
+- I imported the user-supplied Atlas connection into the ignored server environment file. Its URI did not select a database, so I selected `fieldwork` explicitly and kept `authSource=admin`. I verified the connection and replica-set support before switching the API.
+- The selected database was empty. I initialized the five demo accounts and five sample requests with the existing seed script; no existing collections or data were deleted. The previous local environment file is preserved in an ignored backup.
+- I extended the ignore rules to cover credential downloads named `*.env`, in addition to the existing `.env` patterns.
+
+- Verification passed against Atlas: API health, both role logins, current-user lookup, two employee requests, three pending team requests, two recent decisions, balance summaries, the weekend preview, and the leave-query indexes. I matched the API employee ID to the stored Atlas record to confirm the running process uses the new database. No browser approval test was performed.
