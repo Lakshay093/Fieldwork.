@@ -74,3 +74,10 @@ I record corrections here as they happen, including the cause and the check used
 - Mobile CSS hid the total allowance, although the prompt requires total, used, pending, and available balances. I kept the allowance visible in a stacked card header and checked the result at 390px without horizontal page overflow.
 - Clean source exports passed the Render production dependency install/start and the Vercel install/build. The production API check connected to Atlas and verified health, exact-origin CORS, and unauthenticated rejection without changing leave records. These local checks do not substitute for verification on the actual hosts.
 - A scan of tracked files, the nine existing commits, and the client build found no current private credentials or common secret patterns. Production dependency auditing reported zero known vulnerabilities. I added `.vercel/` to the ignored paths and documented the remaining hosting settings in `DEPLOYMENT_CHECKLIST.md`.
+
+## Development documentation
+
+- After the user approved the sample report, I created `DEVELOPMENT_REPORT.md` and replaced the README's initial AI-tools fields with the contribution summary. The README now also summarizes the recorded corrections and links to the report.
+- The approved wording distinguishes project ownership from Codex's implementation and integration assistance. The Claude Code contribution remains marked as pending confirmation for work outside this session; no model versions or independent testing claims were invented.
+- I updated the deployment checklist to reflect the completed report and the remaining attribution confirmation. This was a documentation-only change; verification results describe the preceding recorded checks.
+- Git's whitespace check flagged the report's Markdown hard-break spaces. I changed the header metadata to separate paragraphs so both formatting and Git whitespace checks pass.

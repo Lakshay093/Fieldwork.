@@ -29,7 +29,7 @@ The code is ready to push to GitHub and configure for a public demo on Vercel an
 | Balance cards on mobile                 | Total allowance, used, pending, available now remain visible at 390px. Browser check found no horizontal page overflow.                                                                           |
 | Design                                  | Warm neutrals, green accent, subtle borders, single web font with fallbacks, inline SVGs, no UI kit, gradients, glass effects, or alert dialogs. Personalized heart footer retained as requested. |
 | Seed and credentials                    | One manager, four reports, repeatable seeding without resetting existing data. Primary account emails/password match the later request. Seed tests.                                               |
-| Documentation and staged work           | Required first-person README sections, deliberately blank AI fields, DEVLOG corrections, conventional stage commits, environment examples and deployment files.                                   |
+| Documentation and staged work           | Required first-person README sections, approved AI contribution summary, development report, DEVLOG corrections, conventional stage commits, environment examples and deployment files.           |
 
 ## Verification performed
 
@@ -50,7 +50,8 @@ The clean install/start checks ran locally on Windows with Node 24. Actual Linux
 - [x] Real `.env` files, database credentials, dependencies, generated builds, and local artifacts are excluded.
 - [x] The checked Git history contains no matches for the current private secrets or common credential patterns.
 - [ ] Create/connect the intended GitHub repository and push the committed code.
-- [ ] Fill the README's AI-tools fields before submitting the project. They remain blank as explicitly requested.
+- [x] Replace the initial AI-tools fields with the approved contribution summary and link the development report.
+- [ ] Confirm the Claude Code contribution from work outside the recorded Codex session before submitting the final attribution.
 
 The README intentionally publishes demo app logins. Anyone reading it can access those demo accounts once hosted; use synthetic data in that database.
 

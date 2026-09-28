@@ -1,8 +1,12 @@
 # Fieldwork
 
+**Project author: Lakshay Dhiman**
+
 ## What it is
 
-I built a small leave-request app for employees and their managers. Employees can check balances, preview a date range, request leave, and cancel eligible requests. Managers review their direct reports' requests and see recent decisions.
+I built Fieldwork to help employees request time off and managers review it. Employees can check balances, preview a date range, submit leave, and cancel eligible requests. Managers see their direct reports' pending requests and recent decisions. The API enforces ownership, overlap checks, reservations, and atomic balance updates.
+
+I used AI assistance during development and retained responsibility for the requirements, configuration decisions, and acceptance of changes. The [development report](DEVELOPMENT_REPORT.md) records the contributions, corrections, and verification results. The [deployment checklist](DEPLOYMENT_CHECKLIST.md) covers the remaining hosting setup.
 
 ### Demo credentials
 
@@ -136,7 +140,7 @@ I keep the checks next to the test layer that exercises them:
 - `client/src/components/forms.test.jsx`: preview validity, stale responses, inline errors, double submits, and required rejection comments.
 - `client/src/api/client.test.js` and `client/src/pages/Manager.test.jsx`: 401 handling and refresh after a competing decision.
 
-I also checked both dashboards at desktop and 390px mobile widths. The browser run covered sign-in, preview, application, session restoration, manager queue, and the approval dialog. The final browser approval click was skipped at the user's request; the automated approval and refund tests passed. Corrections and verification notes are in `DEVLOG.md`.
+Both dashboards were checked at desktop and 390px mobile widths during the Codex-assisted session. The browser run covered sign-in, preview, application, session restoration, manager queue, and the approval dialog. The final browser approval click was skipped at my request; the automated approval and refund tests passed. Corrections and verification notes are in `DEVLOG.md`.
 
 ## API summary
 
@@ -198,10 +202,28 @@ The login limiter is in memory and suits one API instance; multiple instances ne
 
 ## AI tools used
 
-**Fields for me to fill in before submitting or publishing:**
+I separate technical ownership from the assistance used to implement and verify the application. The contributions below reflect the development record and the attribution still awaiting confirmation.
 
-- Tool(s) and model(s): **[fill in]**
-- Tasks I used them for: **[fill in]**
-- What I reviewed or changed myself: **[fill in]**
-- What went wrong and how I fixed it: **[fill in; consult DEVLOG.md]**
-- What I tested independently: **[fill in]**
+| Contributor    | Contribution                                                                                                                                                                                                                                                                 |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Claude Code    | Frontend development and interface styling, subject to confirmation of the work completed outside the recorded Codex session.                                                                                                                                                |
+| Codex AI       | Backend implementation assistance: Express routes, authentication, validation, leave rules, MongoDB transactions, automated tests, and deployment review. Codex also contributed frontend corrections, API integration, and Atlas configuration during the recorded session. |
+| Lakshay Dhiman | Project requirements, design and configuration decisions, provision of the Atlas environment, review of application behavior, and final acceptance of changes. API and database setup included Codex assistance.                                                             |
+
+The Claude Code attribution remains pending confirmation. I have not assigned model versions or claimed independent test runs that are not recorded. The verification results in this README come from checks performed during the Codex-assisted development session.
+
+## Review and corrections
+
+The development process included changes to generated code and configuration. These are documented in [DEVLOG.md](DEVLOG.md); the main corrections are summarized below.
+
+| Issue identified                                                                                                  | Correction and verification                                                                                                                  |
+| ----------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| Mobile balance cards hid the total leave allowance.                                                               | Stacked the card header so total, used, pending, and available days remain visible. Checked at 390px without horizontal page overflow.       |
+| A Vercel build could succeed without the production API URL.                                                      | Added an HTTPS API URL check and verified that a missing value stops the build while a configured build succeeds.                            |
+| The Node.js version range could select an untested future major version.                                          | Pinned Node 24 and synchronized the lockfile and deployment configuration. Clean installs and builds passed.                                 |
+| The initial local database used a standalone MongoDB instance, which could not support the required transactions. | Configured a temporary replica set on port 27018, then connected the persistent demo to Atlas. Verified database readiness and API behavior. |
+| A failed balance deduction could report a misleading available balance.                                           | Added a specific balance-change error and checked that failed approval leaves the request pending and rolls back the transaction.            |
+
+The latest recorded full verification passed all **82 tests**, lint, formatting, and the production build. Separate checks covered clean deployment installs, Atlas connectivity, CORS, and mobile layouts. The final browser approval click was skipped at my request; automated approval, rejection, refund, and concurrency tests passed.
+
+See [DEVELOPMENT_REPORT.md](DEVELOPMENT_REPORT.md) for the full contribution and review summary.
